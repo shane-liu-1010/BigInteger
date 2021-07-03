@@ -1,12 +1,10 @@
-#include<iostream>
 #include<string>
-using namespace std;
 
 class BigInteger{
 private:
-	string value;
+	std::string value;
 	bool negative;
-	inline void checkLegal(string x){
+	inline void checkLegal(std::string x){
 		int i=0;
 		if(x[0]=='-')i=1;
 		for(;i<x.length();i++){
@@ -60,9 +58,9 @@ private:
 public:
 	BigInteger(int a=0){
 		negative=a<0;
-		*this=to_string(a);
+		*this=std::to_string(a);
 	}
-	BigInteger(string a){
+	BigInteger(std::string a){
 		checkLegal(a);
 		negative=false;
 		if(a[0]=='-'){
@@ -73,13 +71,13 @@ public:
 	}
 	explicit operator bool(){return !*this;}
 	int length()const{return value.length();}
-	friend ostream & operator<<(std::ostream &out,const BigInteger &a){
-		string c=(a.negative)?"-":"";
+	friend std::ostream & operator<<(std::ostream &out,const BigInteger &a){
+		std::string c=(a.negative)?"-":"";
 		out<<c<<a.value;
 		return out;
 	}
-	friend istream & operator>>(std::istream &in,BigInteger &a){
-		string temp;
+	friend std::istream & operator>>(std::istream &in,BigInteger &a){
+		std::string temp;
 		in>>temp;
 		a=temp;
 		return in;
@@ -125,7 +123,7 @@ public:
 		else if(a.negative)return b-abs(a);
 		else if(b.negative)return a-abs(b);
 		else if(a<b)return b+a;
-		string ans=a.value;
+		std::string ans=a.value;
 		for(int i=1;i<=b.length();i++){
 			ans[ans.length()-i]+=b[b.length()-i];
 		}
@@ -143,7 +141,7 @@ public:
 		else if(a.negative)return -(abs(a)+abs(b));
 		else if(b.negative)return a+abs(b);
 		else if(a<b)return -(b-a);
-		string ans=a.value;
+		std::string ans=a.value;
 		for(int i=1;i<=b.length();i++){
 			ans[ans.length()-i]-=b[b.length()-i];
 		}
@@ -162,7 +160,7 @@ public:
 		BigInteger ans;
 		for(int i=0;i<a.length();i++){
 			for(int j=0;j<b.length();j++){
-				string temp=to_string((a[i])*(b[j]));
+				std::string temp=std::to_string((a[i])*(b[j]));
 				for(int k=0;k<a.length()+b.length()-i-j-2;k++){
 					temp+='0';
 				}
